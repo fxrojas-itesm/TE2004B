@@ -1,0 +1,7 @@
+{
+  "board": "NUCLEO-H533RE",
+  "device": "STM32H533RET6",
+  "core": "Cortex-M33",
+  "order": 0,
+  "toolchain": "GCC"
+}
