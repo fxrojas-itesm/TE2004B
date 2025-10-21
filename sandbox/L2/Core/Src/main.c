@@ -105,16 +105,16 @@ int main(void)
   # = 32M*125m/600 = 6,667   = 6.7k
   */
 
-  SysTick->LOAD = 8e6 - 1;
-  SysTick->VAL  = 0;
-  SysTick->CTRL |= (SysTick_CTRL_ENABLE_Msk | SysTick_CTRL_CLKSOURCE_Msk);
+  //SysTick->LOAD = 8e6 - 1;
+  //SysTick->VAL  = 0;
+  //SysTick->CTRL |= (SysTick_CTRL_ENABLE_Msk | SysTick_CTRL_CLKSOURCE_Msk);
 
   RCC->APB1LENR |= RCC_APB1LENR_TIM7EN;
   TIM7->PSC = 64 - 1;
   TIM7->ARR = 62500 - 1;
   TIM7->CNT = 0;
   TIM7->CR1 |= TIM_CR1_CEN;
-
+/*
   RCC->APB1LENR |= RCC_APB1LENR_TIM3EN;
   TIM3->PSC = 64 - 1;
   TIM3->ARR = 62500 - 1;
@@ -135,14 +135,14 @@ int main(void)
   NVIC_EnableIRQ(TIM2_IRQn);
   __enable_irq();
   TIM2->CR1 |= TIM_CR1_CEN;
-
+*/
   while (1)
   {
     //HAL_Delay(125);
     //while(!(SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk));
 
-    //while(!(TIM7->SR & TIM_SR_UIF));
-    //TIM7->SR &= ~TIM_SR_UIF;
+    while(!(TIM7->SR & TIM_SR_UIF));
+    TIM7->SR &= ~TIM_SR_UIF;
 
     //while(!(TIM3->SR & TIM_SR_UIF));
     //TIM3->SR &= ~TIM_SR_UIF;
@@ -150,7 +150,7 @@ int main(void)
     //while(!(TIM2->SR & TIM_SR_UIF));
     //TIM2->SR &= ~TIM_SR_UIF;
 
-    //GPIOA->ODR ^= GPIO_ODR_OD5;
+    GPIOA->ODR ^= GPIO_ODR_OD5;
   }
 
 }
